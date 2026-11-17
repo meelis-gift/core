@@ -1,5 +1,6 @@
 """Data update coordinator for the Ouman EH-800 integration."""
 
+import asyncio
 from dataclasses import dataclass, replace
 from datetime import timedelta
 import logging
@@ -8,7 +9,9 @@ from typing import TYPE_CHECKING, override
 from ouman_eh_800_api import (
     ControllableEndpoint,
     L1BaseEndpoints,
+    L1RoomSensor,
     L2BaseEndpoints,
+    L2RoomSensor,
     OumanClientAuthenticationError,
     OumanClientCommunicationError,
     OumanClientError,
@@ -131,8 +134,15 @@ class OumanEh800Coordinator(DataUpdateCoordinator[OumanEh800Data]):
         self.async_set_updated_data(
             replace(self.data, values={**self.data.values, endpoint: result})
         )
-        # Separate refresh on all endpoints to catch cascading changes.
-        await self.async_request_refresh()
+        if endpoint in (
+            L1RoomSensor.ROOM_TEMPERATURE_SETPOINT_USER,
+            L2RoomSensor.ROOM_TEMPERATURE_SETPOINT_USER,
+        ):
+            # Allow the controller to recalculate the effective setpoint.
+            await asyncio.sleep(1)
+            await self.async_refresh()
+        else:
+            await self.async_request_refresh()
 
     def set_up_circuit_devices(self, parent_device_id: str) -> None:
         """Build child device infos for the active circuits.
