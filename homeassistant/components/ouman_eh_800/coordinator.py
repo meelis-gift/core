@@ -139,7 +139,7 @@ class OumanEh800Coordinator(DataUpdateCoordinator[OumanEh800Data]):
             L2RoomSensor.ROOM_TEMPERATURE_SETPOINT_USER,
         ):
             # Allow the controller to recalculate the effective setpoint.
-            await asyncio.sleep(1)
+            await asyncio.sleep(3)
             await self.async_refresh()
         else:
             await self.async_request_refresh()
