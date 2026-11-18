@@ -1,0 +1,41 @@
+{
+  "entity": {
+    "select": {
+      "home_away_mode": {
+        "name": "Kodus/eemal",
+        "state": {
+          "away": "Eemal",
+          "home": "Kodus",
+          "off": "Väljas"
+        }
+      },
+      "operation_mode": {
+        "name": "Töörežiim",
+        "state": {
+          "automatic": "Automaatne",
+          "big_temperature_drop": "Suur temperatuurilangetus",
+          "manual_valve_control": "Ventiili käsijuhtimine",
+          "normal_temperature": "Tavatemperatuur",
+          "shutdown": "Ooterežiim",
+          "temperature_drop": "Temperatuurilangetus"
+        }
+      },
+      "relay_control": {
+        "name": "Relee juhtimine",
+        "state": {
+          "auto": "Automaatne",
+          "off": "Väljas",
+          "on": "Sees"
+        }
+      },
+      "relay_pump_summer_stop_control": {
+        "name": "Pumba suvine seiskamine",
+        "state": {
+          "auto": "Automaatne",
+          "run": "Töötab",
+          "stop": "Seisatud"
+        }
+      }
+    }
+  }
+}
